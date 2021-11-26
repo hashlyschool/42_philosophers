@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@students.21-school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 12:40:14 by hashly            #+#    #+#             */
-/*   Updated: 2021/11/26 14:49:30 by hashly           ###   ########.fr       */
+/*   Updated: 2021/11/26 14:52:47 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ typedef struct s_data
 	int	max_eat;
 
 	//forks
-	pthread_t	*fork;
+	pthread_mutex_t	*forks;
+	//philo
+	pthread_t	*philo;
 	//error
 	int	error;
 }	t_data;
