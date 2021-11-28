@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_param.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@students.21-school.ru>      +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:41:11 by hashly            #+#    #+#             */
-/*   Updated: 2021/11/26 14:30:47 by hashly           ###   ########.fr       */
+/*   Updated: 2021/11/28 18:57:41 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ static void	set_def_param(t_data *data)
 
 static void	check_param(t_data *data, int argc)
 {
-	if (data->num_phil < 1 || data->t_die < 1 || data->t_sleep < 1 ||
-	data->t_sleep < 1 || (argc == 6 && data->max_eat < 1))
+	if (data->num_phil < 1 || data->t_die < 1 || data->t_sleep < 1
+		|| data->t_sleep < 1 || (argc == 6 && data->max_eat < 1))
 		data->error = 1;
 	if (data->error)
 		printf("Not valid param\n");
@@ -58,7 +58,7 @@ static void	check_param(t_data *data, int argc)
 
 static void	get_param(t_data *data, int argc, char **argv)
 {
-	if (argc != 5 && argc !=6)
+	if (argc != 5 && argc != 6)
 	{
 		printf("wrong number arguments\n");
 		data->error = 1;
