@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@students.21-school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:30:22 by hashly            #+#    #+#             */
-/*   Updated: 2021/11/28 23:48:06 by hashly           ###   ########.fr       */
+/*   Updated: 2021/11/29 10:14:12 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,23 @@ void	*check_time_death(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	pthread_mutex_init(&philo->data->time_dead_m, NULL);
 	while (get_time_ms() - philo->last_eat <= philo->data->t_die)
 	{
 		philo->death = 1;
 		ft_usleep(philo->data, 1);
 	}
-	pthread_mutex_lock(&philo->data->time_dead_m);
+	if (pthread_mutex_lock(&philo->data->time_dead_m))
+	{
+		ft_error_str_set_status(philo->data, "Error mutex lock in check_time_death\n");
+		return (NULL);
+	}
 	if (philo->data->death != 1)
 	{
 		philo->data->death = 1;
 		printf("%lu %d died\n", get_time_ms() - philo->last_eat, philo->id);
 	}
-	pthread_mutex_unlock(&philo->data->time_dead_m);
+	if (pthread_mutex_unlock(&philo->data->time_dead_m))
+		ft_error_str_set_status(philo->data, "Error mutex unlock in check_time_death\n");
 	return (NULL);
 }
 
@@ -46,7 +50,19 @@ void	*philo_live(void *arg)
 	pthread_create(&death_t, NULL, check_time_death, &(*philo));
 	while (philo->data->death != 1)
 	{
-		ft_usleep(philo->data, 10);
+		if (philo->data->max_eat != -1 && philo->num_eat >= philo->data->max_eat)
+			break ;
+		if (ft_take_forks(philo) == 0)
+			break ;
+		if (ft_eat(philo) == 0)
+			break ;
+		if (philo->data->max_eat != -1 && philo->num_eat == philo->data->max_eat)
+			break ;
+		if (ft_philo_sleep(philo) == 0)
+			break ;
+		if (ft_think(philo) == 0)
+			break ;
+		ft_usleep(philo->data, 1);
 	}
 	pthread_join(death_t, NULL);
 	return (NULL);

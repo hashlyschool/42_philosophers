@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hashly <hashly@students.21-school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/28 14:23:36 by hashly            #+#    #+#             */
-/*   Updated: 2021/11/29 09:45:10 by hashly           ###   ########.fr       */
+/*   Created: 2021/11/29 10:20:44 by hashly            #+#    #+#             */
+/*   Updated: 2021/11/29 10:29:13 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-// void	ft_error_str(char *message)
-// {
-// 	printf("%s", message);
-// 	return ;
-// }
-
-void	ft_error_str_set_status(t_data *data, char *message)
+int	ft_take_forks(t_philo *philo)
 {
-	data->error = 1;
-	printf("%s", message);
-	return ;
+	if (philo->data->death == 1)
+		return (0);
+	pthread_mutex_lock(&philo->data->forks[ft_get_max_fork(philo)]);
+	
 }
-

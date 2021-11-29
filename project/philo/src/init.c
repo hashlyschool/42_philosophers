@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@students.21-school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:32:45 by hashly            #+#    #+#             */
-/*   Updated: 2021/11/28 23:48:49 by hashly           ###   ########.fr       */
+/*   Updated: 2021/11/29 10:10:12 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	ft_init_forks_time(t_data *data)
 	if (gettimeofday(&time, NULL))
 		ft_error_str_set_status(data, "Error gettimeofday time\n");
 	data->time_start = (time.tv_sec * 1000 + time.tv_usec / 1000);
+	if (pthread_mutex_init(&data->time_dead_m, NULL))
+		return (ft_error_str_set_status(data, "Error mutex init time_dead\n"));
 }
 
 t_philo	*init_philo_struct(t_data *data)
@@ -89,6 +91,10 @@ t_philo	*init_philo_struct(t_data *data)
 		philo[i - 1].death = 0;
 		philo[i - 1].last_eat = 0;
 		philo[i - 1].l_fork = i;
+		if (data->max_eat == -1)
+			philo[i - 1].num_eat = 0;
+		else
+			philo[i - 1].num_eat = -1;
 		if (i == 1)
 			philo[i - 1].r_fork = data->num_phil;
 		else
