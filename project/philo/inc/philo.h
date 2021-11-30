@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@students.21-school.ru>      +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 12:40:14 by hashly            #+#    #+#             */
-/*   Updated: 2021/11/29 10:28:03 by hashly           ###   ########.fr       */
+/*   Updated: 2021/11/30 13:52:27 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef struct s_philo
 	int				num_eat;
 	int				l_fork;
 	int				r_fork;
+	int				max_fork;
+	int				min_fork;
 }	t_philo;
 
 
@@ -84,8 +86,10 @@ void	ft_usleep(t_data *data, int sleep_time_ms);
 unsigned long	get_time_ms(void);
 //action.c
 int	ft_take_forks(t_philo *philo);
-//action_utilit.c
+//utilit.c
 int	ft_get_min_fork(t_philo *philo);
 int	ft_get_max_fork(t_philo *philo);
+int	ft_get_r_fork(int i, t_data *data);
+int	ft_write_status(t_philo *philo, char *str);
 
 #endif

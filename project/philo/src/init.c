@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@students.21-school.ru>      +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:32:45 by hashly            #+#    #+#             */
-/*   Updated: 2021/11/29 10:10:12 by hashly           ###   ########.fr       */
+/*   Updated: 2021/11/30 13:52:34 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,9 @@ t_philo	*init_philo_struct(t_data *data)
 			philo[i - 1].num_eat = 0;
 		else
 			philo[i - 1].num_eat = -1;
-		if (i == 1)
-			philo[i - 1].r_fork = data->num_phil;
-		else
-			philo[i - 1].r_fork = i - 1;
+		philo[i - 1].r_fork = ft_get_r_fork(i, data);
+		philo[i - 1].max_fork = ft_get_max_fork(&philo[i - 1]);
+		philo[i - 1].min_fork = ft_get_min_fork(&philo[i - 1]);
 		i++;
 	}
 	return (philo);

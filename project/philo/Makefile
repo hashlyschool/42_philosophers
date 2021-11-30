@@ -9,7 +9,7 @@ SRCS_PATH	= ./src/
 OBJS_PATH	= ./objs/
 
 SRCS_NAME	=	main.c philo.c get_param.c error.c init.c time.c \
-				action.c action_utilit.c
+				action.c utilit.c
 SRCS		= $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 OBJS		= $(addprefix $(OBJS_PATH), $(SRCS_NAME:.c=.o))
 
