@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 12:40:14 by hashly            #+#    #+#             */
-/*   Updated: 2021/11/30 13:52:27 by hashly           ###   ########.fr       */
+/*   Updated: 2021/11/30 23:42:38 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ void	ft_usleep(t_data *data, int sleep_time_ms);
 unsigned long	get_time_ms(void);
 //action.c
 int	ft_take_forks(t_philo *philo);
+int	ft_eat(t_philo *philo);
+int	ft_philo_sleep(t_philo *philo);
+int	ft_think(t_philo *philo);
 //utilit.c
 int	ft_get_min_fork(t_philo *philo);
 int	ft_get_max_fork(t_philo *philo);

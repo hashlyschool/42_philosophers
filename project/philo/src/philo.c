@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@students.21-school.ru>      +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:30:22 by hashly            #+#    #+#             */
-/*   Updated: 2021/11/29 10:14:12 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/01 00:01:06 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	*check_time_death(void *arg)
 	if (philo->data->death != 1)
 	{
 		philo->data->death = 1;
-		printf("%lu %d died\n", get_time_ms() - philo->last_eat, philo->id);
+		printf("%lu %d died\n", get_time_ms() - philo->data->time_start, philo->id);
 	}
 	if (pthread_mutex_unlock(&philo->data->time_dead_m))
 		ft_error_str_set_status(philo->data, "Error mutex unlock in check_time_death\n");
@@ -50,6 +50,7 @@ void	*philo_live(void *arg)
 	pthread_create(&death_t, NULL, check_time_death, &(*philo));
 	while (philo->data->death != 1)
 	{
+		//printf("philo %d born", philo->id);
 		if (philo->data->max_eat != -1 && philo->num_eat >= philo->data->max_eat)
 			break ;
 		if (ft_take_forks(philo) == 0)

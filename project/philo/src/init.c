@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:32:45 by hashly            #+#    #+#             */
-/*   Updated: 2021/11/30 13:52:34 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/01 00:24:39 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ t_philo	*init_philo_struct(t_data *data)
 		philo[i - 1].data =  data;
 		philo[i - 1].death = 0;
 		philo[i - 1].last_eat = 0;
-		philo[i - 1].l_fork = i;
 		if (data->max_eat == -1)
 			philo[i - 1].num_eat = 0;
 		else
 			philo[i - 1].num_eat = -1;
+		philo[i - 1].l_fork = i;
 		philo[i - 1].r_fork = ft_get_r_fork(i, data);
 		philo[i - 1].max_fork = ft_get_max_fork(&philo[i - 1]);
 		philo[i - 1].min_fork = ft_get_min_fork(&philo[i - 1]);

@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 10:25:03 by hashly            #+#    #+#             */
-/*   Updated: 2021/11/30 13:52:21 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/01 00:09:02 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 int	ft_get_min_fork(t_philo *philo)
 {
 	if (philo->l_fork < philo->r_fork)
-		return (philo->l_fork);
+		return (philo->l_fork - 1);
 	else
-		return (philo->r_fork);
+		return (philo->r_fork - 1);
 }
 
 int	ft_get_max_fork(t_philo *philo)
 {
 	if (philo->l_fork > philo->r_fork)
-		return (philo->l_fork);
+		return (philo->l_fork - 1);
 	else
-		return (philo->r_fork);
+		return (philo->r_fork - 1);
 }
 
 int	ft_get_r_fork(int i, t_data *data)
@@ -44,7 +44,7 @@ int	ft_write_status(t_philo *philo, char *str)
 	if (time - philo->last_eat <= philo->data->t_die \
 	&& (unsigned long)philo->data->death != 1)
 	{
-		printf("%6lu %4d %s", time - philo->data->time_start, philo->id, str);
+		printf("%lu %d %s", time - philo->data->time_start, philo->id, str);
 		return (1);
 	}
 	return (0);
