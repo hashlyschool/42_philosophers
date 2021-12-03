@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@students.21-school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 12:40:14 by hashly            #+#    #+#             */
-/*   Updated: 2021/11/30 23:42:38 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/03 15:06:18 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 //		pthread_mutex_lock, pthread_mutex_unlock,
 //		pthread_mutex_init, pthread_mutex_destroy
 # include <pthread.h>
+# define TAKE_FORK "has taken a fork\n"
+# define EATING "is eating\n"
+# define SLEEPING "is sleeping\n"
+# define THINKING "is thinking\n"
 
 typedef struct s_data
 {
@@ -79,7 +83,7 @@ void	ft_init_forks_time(t_data *data);
 
 void	ft_join_thread(t_data *data);
 
-void	ft_end_cleaner(t_data *data);
+void	ft_end_cleaner(t_data *data, t_philo *philo);
 void	ft_destroy_forks(t_data *data);
 //time.c
 void	ft_usleep(t_data *data, int sleep_time_ms);

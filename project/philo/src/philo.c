@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@students.21-school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:30:22 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/01 00:01:06 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/03 14:57:21 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	*check_time_death(void *arg)
 	while (get_time_ms() - philo->last_eat <= philo->data->t_die)
 	{
 		philo->death = 1;
+		if (philo->data->max_eat != -1 && philo->num_eat == philo->data->max_eat)
+			return (NULL);
 		ft_usleep(philo->data, 1);
 	}
 	if (pthread_mutex_lock(&philo->data->time_dead_m))
@@ -48,9 +50,8 @@ void	*philo_live(void *arg)
 	philo = (t_philo *)arg;
 	philo->last_eat = philo->data->time_start;
 	pthread_create(&death_t, NULL, check_time_death, &(*philo));
-	while (philo->data->death != 1)
+	while (philo->data->death != 1 || philo->num_eat >= philo->data->max_eat)
 	{
-		//printf("philo %d born", philo->id);
 		if (philo->data->max_eat != -1 && philo->num_eat >= philo->data->max_eat)
 			break ;
 		if (ft_take_forks(philo) == 0)
@@ -63,6 +64,7 @@ void	*philo_live(void *arg)
 			break ;
 		if (ft_think(philo) == 0)
 			break ;
+
 		ft_usleep(philo->data, 1);
 	}
 	pthread_join(death_t, NULL);
@@ -96,5 +98,5 @@ void	ft_philo(int argc, char **argv)
 	ft_init_philo(&data, arg);
 	ft_join_thread(&data);
 	ft_destroy_forks(&data);
-	ft_end_cleaner(&data);
+	ft_end_cleaner(&data, arg);
 }

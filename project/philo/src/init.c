@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@students.21-school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:32:45 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/01 00:24:39 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/03 11:00:45 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	ft_end_cleaner(t_data *data)
+void	ft_end_cleaner(t_data *data, t_philo *philo)
 {
 	if (data->error)
 		return ;
 	free(data->forks);
 	free(data->philo_t);
-	// free(data->);
+	free(philo);
 }
 
 void	ft_destroy_forks(t_data *data)
@@ -90,7 +90,7 @@ t_philo	*init_philo_struct(t_data *data)
 		philo[i - 1].data =  data;
 		philo[i - 1].death = 0;
 		philo[i - 1].last_eat = 0;
-		if (data->max_eat == -1)
+		if (data->max_eat != -1)
 			philo[i - 1].num_eat = 0;
 		else
 			philo[i - 1].num_eat = -1;
