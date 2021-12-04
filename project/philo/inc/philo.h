@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@students.21-school.ru>      +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 12:40:14 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/03 15:06:18 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/04 14:48:39 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,22 @@
 typedef struct s_data
 {
 	//input
-	int	num_phil;
-	int	t_die;
-	int	t_eat;
-	int	t_sleep;
-	int	max_eat;
+	int				num_phil; //
+	int				t_die; //
+	int				t_eat;//
+	int				t_sleep;//
+	int				max_eat; //
 
 	//forks
 	pthread_mutex_t	*forks;
 	//philo
 	pthread_t		*philo_t;
 	pthread_mutex_t	time_dead_m;
-	int				death;
+	int				death;//
 	//error
-	int	error;
+	int				error; //
 	//time
-	unsigned long	time_start;
+	unsigned long	time_start;//
 }	t_data;
 
 typedef struct s_philo
@@ -68,35 +68,32 @@ typedef struct s_philo
 
 
 //philo.c
-void	ft_philo(int argc, char **argv);
-void	*philo_live(void *arg);
+void			ft_philo(int argc, char **argv);
+void			*philo_live(void *arg);
 //get_param.c
-void	init_data(t_data *data, int argc, char **argv);
+void			init_data(t_data *data, int argc, char **argv);
 //error.c
-// void	ft_error_str(char *message);
-void	ft_error_str_set_status(t_data *data, char *message);
+int				ft_exit_philo(t_data *data, t_philo *philo);
+void			ft_error_str_set_status(t_data *data, int error, char *message);
 //init.c
-t_philo	*init_philo_struct(t_data *data);
-void	ft_init_philo(t_data *data, t_philo *arg);
-
-void	ft_init_forks_time(t_data *data);
-
-void	ft_join_thread(t_data *data);
-
-void	ft_end_cleaner(t_data *data, t_philo *philo);
-void	ft_destroy_forks(t_data *data);
+t_philo			*init_philo_struct(t_data *data);
+void			ft_init_philo(t_data *data, t_philo *arg);
+void			ft_init_forks_time(t_data *data);
+void			ft_join_thread(t_data *data);
+void			ft_end_cleaner(t_data *data, t_philo *philo);
+void			ft_destroy_forks(t_data *data);
 //time.c
-void	ft_usleep(t_data *data, int sleep_time_ms);
+void			ft_usleep(t_data *data, int sleep_time_ms);
 unsigned long	get_time_ms(void);
 //action.c
-int	ft_take_forks(t_philo *philo);
-int	ft_eat(t_philo *philo);
-int	ft_philo_sleep(t_philo *philo);
-int	ft_think(t_philo *philo);
+int				ft_take_forks(t_philo *philo);
+int				ft_eat(t_philo *philo);
+int				ft_philo_sleep(t_philo *philo);
+int				ft_think(t_philo *philo);
 //utilit.c
-int	ft_get_min_fork(t_philo *philo);
-int	ft_get_max_fork(t_philo *philo);
-int	ft_get_r_fork(int i, t_data *data);
-int	ft_write_status(t_philo *philo, char *str);
+int				ft_get_min_fork(t_philo *philo);
+int				ft_get_max_fork(t_philo *philo);
+int				ft_get_r_fork(int i, t_data *data);
+int				ft_write_status(t_philo *philo, char *str);
 
 #endif

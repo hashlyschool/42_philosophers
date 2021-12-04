@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@students.21-school.ru>      +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:30:22 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/03 14:57:21 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/04 14:44:38 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*check_time_death(void *arg)
 	}
 	if (pthread_mutex_lock(&philo->data->time_dead_m))
 	{
-		ft_error_str_set_status(philo->data, "Error mutex lock in check_time_death\n");
+		ft_error_str_set_status(philo->data, 4, "Error mutex lock in check_time_death\n");
 		return (NULL);
 	}
 	if (philo->data->death != 1)
@@ -35,7 +35,7 @@ void	*check_time_death(void *arg)
 		printf("%lu %d died\n", get_time_ms() - philo->data->time_start, philo->id);
 	}
 	if (pthread_mutex_unlock(&philo->data->time_dead_m))
-		ft_error_str_set_status(philo->data, "Error mutex unlock in check_time_death\n");
+		ft_error_str_set_status(philo->data, 4, "Error mutex unlock in check_time_death\n");
 	return (NULL);
 }
 
@@ -87,16 +87,28 @@ void	ft_philo(int argc, char **argv)
 	t_data	data;
 	t_philo	*arg;
 
-	init_data(&data, argc, argv);
-	ft_init_forks_time(&data);
-	if (data.error == 0)
+	init_data(&data, argc, argv); //норм с проверкой и инициализацией, malloc нет
+	ft_init_forks_time(&data); //норм с проверкой и инициализацией, malloc forks
+	if (data.error == 0) //норм с проверкой и инициализацией
 	{
-		arg = init_philo_struct(&data);
+		arg = init_philo_struct(&data); //норм с инициализацией и проверкой, malloc philo
 		if (!arg)
-			return (ft_error_str_set_status(&data, "Error malloc in init philo struct\n"));
+			ft_error_str_set_status(&data, 2, "Error malloc for philo in init_philo_struct\n");
 	}
+	if (data.error)
+	{
+		ft_exit_philo(&data, NULL);
+		return ;
+	}
+	//-----------------
 	ft_init_philo(&data, arg);
 	ft_join_thread(&data);
 	ft_destroy_forks(&data);
 	ft_end_cleaner(&data, arg);
+}
+
+int	main(int argc, char **argv)
+{
+	ft_philo(argc, argv);
+	return (0);
 }
