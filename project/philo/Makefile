@@ -1,6 +1,6 @@
 NAME		= philo
-CC			= gcc
-FLAGS		= -O3 -pthread -Wall -Wextra -Werror
+CC			= clang
+FLAGS		= -g -pthread -Wall -Wextra -Werror
 RM			= rm -rf
 INC			= ./inc
 INC_FILE	= ./inc/*
