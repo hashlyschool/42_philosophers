@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@students.21-school.ru>      +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 10:20:44 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/03 15:06:23 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/05 19:00:13 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ int	ft_eat(t_philo *philo)
 	}
 	philo->last_eat = get_time_ms();
 	ft_usleep(philo->data, philo->data->t_eat);
-	if (philo ->num_eat != -1)
-		philo->num_eat++;
+	philo->last_eat = get_time_ms();
 	pthread_mutex_unlock(&philo->data->forks[philo->max_fork]);
 	pthread_mutex_unlock(&philo->data->forks[philo->min_fork]);
+	if (philo->num_eat != -1)
+		philo->num_eat++;
 	return (1);
 }
-
 
 int	ft_philo_sleep(t_philo *philo)
 {

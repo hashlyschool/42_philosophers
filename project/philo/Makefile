@@ -1,6 +1,6 @@
 NAME		= philo
-CC			= clang
-FLAGS		= -O3 -pthread #-O3 -Wall -Wextra -Werror
+CC			= gcc
+FLAGS		= -O3 -pthread -Wall -Wextra -Werror
 RM			= rm -rf
 INC			= ./inc
 INC_FILE	= ./inc/*
@@ -8,8 +8,8 @@ INC_FILE	= ./inc/*
 SRCS_PATH	= ./src/
 OBJS_PATH	= ./objs/
 
-SRCS_NAME	=	philo.c get_param.c error.c init.c time.c \
-				action.c utilit.c
+SRCS_NAME	=	philo.c get_param.c init.c time.c \
+				action.c utilit.c error_exit.c
 SRCS		= $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 OBJS		= $(addprefix $(OBJS_PATH), $(SRCS_NAME:.c=.o))
 

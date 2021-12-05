@@ -2,3 +2,4 @@ objs
 project/philo/philo
 project/philo_bonus/philo_bonus
 out
+philosophers_test

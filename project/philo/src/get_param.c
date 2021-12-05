@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:41:11 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/04 14:48:35 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/05 14:49:44 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	set_def_param(t_data *data)
 static void	get_param(t_data *data, int argc, char **argv)
 {
 	if (argc != 5 && argc != 6)
-		return (ft_error_str_set_status(data, 1, "wrong number arguments\n"));
+		return (ft_set_error(data, 1, "wrong number arguments\n"));
 	else
 	{
 		data->num_phil = ft_atoi(argv[1]);
@@ -64,7 +64,7 @@ static void	get_param(t_data *data, int argc, char **argv)
 	}
 	if (data->num_phil < 1 || data->t_die < 1 || data->t_sleep < 1
 		|| data->t_sleep < 1 || (argc == 6 && data->max_eat < 0))
-		ft_error_str_set_status(data, 1, "Not valid param\n");
+		ft_set_error(data, 1, "Not valid param\n");
 }
 
 void	init_data(t_data *data, int argc, char **argv)

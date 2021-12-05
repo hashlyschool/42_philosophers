@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 12:40:14 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/04 14:48:39 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/05 18:17:27 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,22 @@
 # define EATING "is eating\n"
 # define SLEEPING "is sleeping\n"
 # define THINKING "is thinking\n"
+# define DEID "died\n"
+# define START_MS 2
 
 typedef struct s_data
 {
-	//input
-	int				num_phil; //
-	int				t_die; //
-	int				t_eat;//
-	int				t_sleep;//
-	int				max_eat; //
-
-	//forks
+	int				num_phil;
+	unsigned long	t_die;
+	int				t_eat;
+	int				t_sleep;
+	int				max_eat;
 	pthread_mutex_t	*forks;
-	//philo
 	pthread_t		*philo_t;
 	pthread_mutex_t	time_dead_m;
-	int				death;//
-	//error
-	int				error; //
-	//time
-	unsigned long	time_start;//
+	int				death;
+	int				error;
+	unsigned long	time_start;
 }	t_data;
 
 typedef struct s_philo
@@ -66,24 +62,25 @@ typedef struct s_philo
 	int				min_fork;
 }	t_philo;
 
-
 //philo.c
 void			ft_philo(int argc, char **argv);
 void			*philo_live(void *arg);
 //get_param.c
 void			init_data(t_data *data, int argc, char **argv);
-//error.c
+//error_exit.c
+void			ft_end_cleaner(t_data *data, t_philo *philo);
+void			ft_destroy_forks(t_data *data);
 int				ft_exit_philo(t_data *data, t_philo *philo);
-void			ft_error_str_set_status(t_data *data, int error, char *message);
+void			ft_set_error(t_data *data, int error, char *message);
+void			*ft_set_error2(t_data *data, int error, char *message);
 //init.c
-t_philo			*init_philo_struct(t_data *data);
 void			ft_init_philo(t_data *data, t_philo *arg);
 void			ft_init_forks_time(t_data *data);
 void			ft_join_thread(t_data *data);
-void			ft_end_cleaner(t_data *data, t_philo *philo);
-void			ft_destroy_forks(t_data *data);
 //time.c
 void			ft_usleep(t_data *data, int sleep_time_ms);
+void			ft_wait_start(t_philo *phl);
+void			ft_wait_to_time(t_philo *data, int sleep_to_time_ms);
 unsigned long	get_time_ms(void);
 //action.c
 int				ft_take_forks(t_philo *philo);
