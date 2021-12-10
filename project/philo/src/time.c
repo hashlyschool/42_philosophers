@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 18:44:50 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/05 18:59:23 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/10 09:56:55 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ void	ft_wait_start(t_philo *phl)
 		else
 		{
 			if (phl->id == phl->data->num_phil)
-				ft_wait_to_time(phl, phl->data->num_phil * START_MS + \
-				phl->data->t_eat * 2);
+				ft_wait_to_time(phl, phl->data->num_phil * 2 * START_MS);
 			else
 				ft_wait_to_time(phl, phl->data->num_phil * START_MS);
 		}

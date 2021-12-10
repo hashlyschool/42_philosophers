@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:30:22 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/05 18:58:56 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/10 09:52:09 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	*philo_live(void *arg)
 			break ;
 		if (ft_think(phl) == 0)
 			break ;
-		ft_usleep(phl->data, 3);
+		ft_usleep(phl->data, 1);
 	}
 	pthread_join(death_t, NULL);
 	return (NULL);

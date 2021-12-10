@@ -1,6 +1,6 @@
-NAME		= philo
+NAME		= philo_bonus
 CC			= clang
-FLAGS		= -O3 -pthread -Wall -Wextra -Werror
+FLAGS		= -pthread #-O3 -pthread -Wall -Wextra -Werror
 RM			= rm -rf
 INC			= ./inc
 INC_FILE	= ./inc/*

@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 12:40:14 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/10 09:55:25 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/10 15:23:27 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,21 @@
 //for memset
 # include <string.h>
 //for printf
-# include<stdio.h>
-//for malloc, free
-# include<stdlib.h>
-//for write, usleep,
-# include<unistd.h>
+# include <stdio.h>
+//for malloc, free, exit
+# include <stdlib.h>
+//for write, usleep, fork
+# include <unistd.h>
+//for kill
+# include <signal.h>
 //for gettimeofday
 # include <sys/time.h>
-//for	pthread_create, pthread_detach, pthread_join,
-//		pthread_mutex_lock, pthread_mutex_unlock,
-//		pthread_mutex_init, pthread_mutex_destroy
+//for pthread_create, pthread_detach, pthread_join
 # include <pthread.h>
+//for waitpid
+# include <sys/wait.h>
+//for  sem_open, sem_close, sem_post, sem_wait, sem_unlink
+# include <semaphore.h>
 # define TAKE_FORK "has taken a fork\n"
 # define EATING "is eating\n"
 # define SLEEPING "is sleeping\n"
@@ -41,8 +45,9 @@ typedef struct s_data
 	int				t_eat;
 	int				t_sleep;
 	int				max_eat;
-	pthread_mutex_t	*forks;
-	pthread_t		*philo_t;
+	//pthread_mutex_t	*forks;
+	sem_t			*forks_sem;
+	//pthread_t		*philo_t;
 	pthread_mutex_t	time_dead_m;
 	int				death;
 	int				error;
@@ -63,10 +68,17 @@ typedef struct s_philo
 }	t_philo;
 
 //philo.c
-void			ft_philo(int argc, char **argv);
-void			*philo_live(void *arg);
+
 //get_param.c
 void			init_data(t_data *data, int argc, char **argv);
+//init.c
+
+
+/*
+//philo.c
+void			ft_philo(int argc, char **argv);
+void			*philo_live(void *arg);
+
 //error_exit.c
 void			ft_end_cleaner(t_data *data, t_philo *philo);
 void			ft_destroy_forks(t_data *data);
@@ -92,5 +104,6 @@ int				ft_get_min_fork(t_philo *philo);
 int				ft_get_max_fork(t_philo *philo);
 int				ft_get_r_fork(int i, t_data *data);
 int				ft_write_status(t_philo *philo, char *str);
+*/
 
 #endif
