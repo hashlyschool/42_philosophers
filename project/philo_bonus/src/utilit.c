@@ -5,35 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 10:25:03 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/11 19:50:42 by hashly           ###   ########.fr       */
+/*   Created: 2021/12/11 14:31:41 by hashly            #+#    #+#             */
+/*   Updated: 2021/12/11 19:28:16 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int	ft_get_min_fork(t_philo *philo)
+void	*ft_waitpid(void *arg)
 {
-	if (philo->l_fork < philo->r_fork)
-		return (philo->l_fork - 1);
-	else
-		return (philo->r_fork - 1);
-}
+	pid_t	*pid;
 
-int	ft_get_max_fork(t_philo *philo)
-{
-	if (philo->l_fork > philo->r_fork)
-		return (philo->l_fork - 1);
-	else
-		return (philo->r_fork - 1);
-}
-
-int	ft_get_r_fork(int i, t_data *data)
-{
-	if (i == 1)
-		return (data->num_phil);
-	else
-		return (i - 1);
+	pid = (pid_t *)(arg);
+	waitpid(*pid, NULL, 0);
+	return (NULL);
 }
 
 int	ft_write_status(t_philo *philo, char *str)
@@ -45,8 +30,11 @@ int	ft_write_status(t_philo *philo, char *str)
 	{
 		if (philo->data->death == 1)
 			return (0);
-		printf("%lu %d %s", time - philo->data->time_start - START_MS, \
+		sem_wait(philo->data->sem_check_death);
+		printf("%lu %d %s", \
+		time - philo->data->time_start - START_MS, \
 		philo->id, str);
+		sem_post(philo->data->sem_check_death);
 		return (1);
 	}
 	return (0);

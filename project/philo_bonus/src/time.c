@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 18:44:50 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/11 19:49:10 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/11 19:49:12 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	ft_wait_to_time(t_philo *phl, int sleep_to_time_ms)
 		usleep(50);
 		now = get_time_ms();
 		if (now == 0)
-			return (ft_set_error(phl->data, 4, \
-			"Error gettimeofday in ft_usleep\n"));
+			exit(ft_exit(phl->data, 4, \
+			"Error gettimeofday in ft_wait_to_time\n"));
 	}
 }
 
@@ -80,13 +80,13 @@ void	ft_usleep(t_data *data, int sleep_time_ms)
 
 	start = get_time_ms();
 	if (start == 0)
-		return (ft_set_error(data, 4, "Error gettimeofday in ft_usleep\n"));
+		exit(ft_exit(data, 4, "Error gettimeofday in ft_usleep\n"));
 	now = start;
 	while (now < start + sleep_time_ms)
 	{
 		usleep(50);
 		now = get_time_ms();
 		if (now == 0)
-			return (ft_set_error(data, 4, "Error gettimeofday in ft_usleep\n"));
+			exit(ft_exit(data, 4, "Error gettimeofday in ft_usleep\n"));
 	}
 }

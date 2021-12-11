@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:30:22 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/10 09:52:09 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/11 19:52:48 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static t_philo	*init_philo_struct(t_data *data)
 	{
 		philo[i - 1].id = i;
 		philo[i - 1].data = data;
-		philo[i - 1].death = 0;
 		philo[i - 1].last_eat = 0;
 		if (data->max_eat != -1)
 			philo[i - 1].num_eat = 0;
@@ -48,7 +47,6 @@ void	*check_time_death(void *arg)
 	phl = (t_philo *)arg;
 	while (get_time_ms() - phl->last_eat <= phl->data->t_die)
 	{
-		phl->death = 1;
 		if (phl->data->max_eat != -1 && phl->num_eat == phl->data->max_eat)
 			return (NULL);
 		ft_usleep(phl->data, 1);
@@ -79,7 +77,7 @@ void	*philo_live(void *arg)
 	phl = (t_philo *)arg;
 	ft_wait_start(phl);
 	pthread_create(&death_t, NULL, check_time_death, &(*phl));
-	while (phl->data->death != 1 || phl->num_eat >= phl->data->max_eat)
+	while (phl->data->death != 1 && phl->num_eat <= phl->data->max_eat)
 	{
 		if (phl->data->max_eat != -1 && phl->num_eat >= phl->data->max_eat)
 			break ;
