@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 12:40:14 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/11 16:52:33 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/11 21:55:40 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_data
 	int				error;
 	unsigned long	time_start;
 	sem_t			*sem_forks;
-	sem_t			*sem_check_death;
+	sem_t			*sem_death;
 	pid_t			*arr_pid;
 	pthread_t		*philo_thread;
 
@@ -76,11 +76,10 @@ void			ft_init_data(t_data *data, int argc, char **argv);
 void			ft_init_forks_time(t_data *data);
 void			ft_init_philo(t_data *data);
 t_philo			ft_init_philo_struct(t_data *data, int id);
-//exit.c
-int				ft_exit(t_data *data, int mode, char *str_err);
 //utilit.c
 void			*ft_waitpid(void *arg);
 int				ft_write_status(t_philo *philo, char *str);
+int				ft_exit(t_data *data, int mode, char *str_err);
 //time.c
 void			ft_usleep(t_data *data, int sleep_time_ms);
 void			ft_wait_start(t_philo *phl);

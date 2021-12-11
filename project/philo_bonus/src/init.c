@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:32:45 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/11 19:28:18 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/11 21:57:12 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	ft_init_forks_time(t_data *data)
 	sem_unlink("forks");
 	sem_unlink("check death");
 	data->sem_forks = sem_open("forks", O_CREAT, 0660, data->num_phil);
-	data->sem_check_death = sem_open("check death", O_CREAT, 0660, 1);
+	data->sem_death = sem_open("check death", O_CREAT, 0660, 1);
 	if (data->sem_forks == SEM_FAILED)
 		exit(ft_exit(data, 1, "Error.  sem_open forks\n"));
-	if (data->sem_check_death == SEM_FAILED)
+	if (data->sem_death == SEM_FAILED)
 		exit(ft_exit(data, 2, "Error.  sem_check_death forks\n"));
 	if (gettimeofday(&time, NULL))
 		exit(ft_exit(data, 3, "Error gettimeofday time. In init time\n"));
@@ -94,14 +94,14 @@ void	ft_init_philo(t_data *data)
 	if (data->arr_pid == NULL)
 		exit(ft_exit(data, 3, "Error malloc in init philo\n"));
 	fd = 1;
-	i = 0;
-	while (i < data->num_phil) //exit 4 нужно если что
+	i = -1;
+	while (++i < data->num_phil)
 	{
 		if (fd != 0)
 		{
 			fd = fork();
 			if (fd == -1)
-				exit(ft_exit(data, 4, "Error fork in ft_init_philo\n")); //возможно нужно будет подать i
+				exit(ft_exit(data, 4, "Error fork in ft_init_philo\n"));
 			data->arr_pid[i] = fd;
 		}
 		if (fd == 0)
@@ -109,7 +109,6 @@ void	ft_init_philo(t_data *data)
 			ft_philo_live(data, i);
 			break ;
 		}
-		i++;
 	}
 	if (fd != 0)
 		ft_init_wait_pthread(data);

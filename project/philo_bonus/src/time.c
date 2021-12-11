@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 18:44:50 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/11 19:49:12 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/11 20:00:12 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,11 @@ void	ft_wait_start(t_philo *phl)
 {
 	int	first;
 	int	second;
-	int third;
+	int	third;
 
 	first = START_MS;
 	second = START_MS + phl->data->t_eat;
 	third = START_MS * 2 + phl->data->t_eat;
-
 	if (phl->id % 2 == 0)
 		ft_wait_to_time(phl, second);
 	else

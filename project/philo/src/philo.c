@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:30:22 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/11 19:52:48 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/11 20:26:25 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_philo	*init_philo_struct(t_data *data)
 		philo[i - 1].r_fork = ft_get_r_fork(i, data);
 		philo[i - 1].max_fork = ft_get_max_fork(&philo[i - 1]);
 		philo[i - 1].min_fork = ft_get_min_fork(&philo[i - 1]);
-		philo[i - 1].last_eat = data->time_start + data->num_phil * START_MS;
+		philo[i - 1].last_eat = data->time_start + START_MS;
 		i++;
 	}
 	return (philo);
@@ -57,8 +57,8 @@ void	*check_time_death(void *arg)
 	if (phl->data->death != 1)
 	{
 		phl->data->death = 1;
-		printf("%lu %d %s", get_time_ms() - phl->data->time_start \
-		- phl->data->num_phil * START_MS, phl->id, DEID);
+		printf("%lu %d %s", get_time_ms() - phl->data->time_start - START_MS, \
+		phl->id, DEID);
 	}
 	if (pthread_mutex_unlock(&phl->data->time_dead_m))
 		ft_set_error(phl->data, 4, \
@@ -76,7 +76,7 @@ void	*philo_live(void *arg)
 
 	phl = (t_philo *)arg;
 	ft_wait_start(phl);
-	pthread_create(&death_t, NULL, check_time_death, &(*phl));
+	pthread_create(&death_t, NULL, check_time_death, phl);
 	while (phl->data->death != 1 && phl->num_eat <= phl->data->max_eat)
 	{
 		if (phl->data->max_eat != -1 && phl->num_eat >= phl->data->max_eat)
