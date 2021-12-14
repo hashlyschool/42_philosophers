@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:41:11 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/14 09:44:19 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/14 12:03:50 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	get_param(t_data *data, int argc, char **argv)
 		if (argc == 6)
 			data->max_eat = ft_atoi(argv[5]);
 	}
-	if (data->num_phil < 1 || data->t_die < 1 || data->t_sleep < 1 || \
+	if (data->num_phil < 0 || data->t_die < 1 || data->t_sleep < 1 || \
 	data->t_eat < 1 || data->t_sleep < 1 || (argc == 6 && data->max_eat < 0))
 		ft_set_error(data, 1, "Not valid param\n");
 }
