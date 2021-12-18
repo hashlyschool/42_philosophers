@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 12:40:14 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/11 21:55:40 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/15 20:14:18 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define SLEEPING "is sleeping\n"
 # define THINKING "is thinking\n"
 # define DEID "died\n"
-# define START_MS 60
+# define START_MS 30
 
 typedef struct s_data
 {
@@ -62,7 +62,6 @@ typedef struct s_philo
 {
 	t_data			*data;
 	int				id;
-	int				death;
 	unsigned long	last_eat;
 	int				num_eat;
 }	t_philo;

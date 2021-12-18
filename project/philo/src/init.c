@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:32:45 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/05 17:42:36 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/18 18:12:01 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,14 @@ void	ft_init_forks_time(t_data *data)
 		return (ft_set_error(data, 1, "Error malloc for data.forks\n"));
 	while (i < data->num_phil)
 	{
-		if (pthread_mutex_init(&data->forks[i], NULL))
-			return (ft_set_error(data, 2, "Error mutex forks init\n"));
+		pthread_mutex_init(&data->forks[i], NULL);
 		i++;
 	}
-	if (gettimeofday(&time, NULL))
-		ft_set_error(data, 2, "Error gettimeofday time\n");
+	gettimeofday(&time, NULL);
 	data->time_start = (time.tv_sec * 1000 + time.tv_usec / 1000);
-	if (pthread_mutex_init(&data->time_dead_m, NULL))
-		return (ft_set_error(data, 2, "Error mutex init time_dead\n"));
+	pthread_mutex_init(&data->last_eat_m, NULL);
+	pthread_mutex_init(&data->data_dead_m, NULL);
+	pthread_mutex_init(&data->num_eat_m, NULL);
 }
 
 void	ft_init_philo(t_data *data, t_philo *arg)
@@ -63,9 +62,7 @@ void	ft_init_philo(t_data *data, t_philo *arg)
 	i = 0;
 	while (i < data->num_phil)
 	{
-		if (!pthread_create(&data->philo_t[i], NULL, philo_live, &arg[i]))
-			i++;
-		else
-			return (ft_set_error(data, 4, "Error pthread_create\n"));
+		pthread_create(&data->philo_t[i], NULL, philo_live, &arg[i]);
+		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 14:23:36 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/10 16:31:53 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/18 18:12:07 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ void	ft_destroy_forks(t_data *data)
 		pthread_mutex_destroy(&data->forks[i]);
 		i++;
 	}
-	pthread_mutex_destroy(&data->time_dead_m);
+	pthread_mutex_destroy(&data->last_eat_m);
+	pthread_mutex_destroy(&data->num_eat_m);
+	pthread_mutex_destroy(&data->data_dead_m);
 }
 
 /*

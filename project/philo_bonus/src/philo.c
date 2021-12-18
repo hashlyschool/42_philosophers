@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:30:22 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/11 22:05:29 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/16 09:57:57 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,15 @@ static void	*check_time_death(void *arg)
 			return (NULL);
 		ft_usleep(phl->data, 1);
 	}
-	if (phl->data->sem_death->__align == 1)
+	sem_wait(phl->data->sem_death);
+	if (get_time_ms() - phl->last_eat - phl->data->t_die < 10)
 	{
-		sem_wait(phl->data->sem_death);
 		printf("%lu %d %s", get_time_ms() - phl->data->time_start - START_MS, \
 		phl->id, DEID);
+		ft_usleep(phl->data, phl->data->t_die * 2);
 	}
+	phl->data->death = 1;
+	sem_post(phl->data->sem_death);
 	return (NULL);
 }
 
@@ -58,6 +61,7 @@ void	ft_philo_live(t_data *data, int id)
 		ft_usleep(phl.data, 1);
 	}
 	pthread_join(death_t, NULL);
+	exit(ft_exit(data, 4, ""));
 }
 
 /*
@@ -79,4 +83,5 @@ int	main(int argc, char **argv)
 	ft_init_forks_time(&data);
 	ft_init_philo(&data);
 	ft_exit(&data, 4, "");
+	return (0);
 }

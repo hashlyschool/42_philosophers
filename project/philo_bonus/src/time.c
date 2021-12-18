@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 18:44:50 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/11 20:00:12 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/16 15:57:36 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ unsigned long	get_time_ms(void)
 /*
 Философы не могут все одновременно сесть за стол,
 Поэтому:
-четные философы ждут от времени старта 60 мс + t_eat,
-а не четные философы ждут 60 мс
+четные философы ждут от времени старта START_MS мс + t_eat,
+а не четные философы ждут START_MS мс
 если философов нечетное количество,
-то последний философ ждет 120 мс
+то последний философ ждет START_MS * 2 мс
 */
 void	ft_wait_start(t_philo *phl)
 {
@@ -38,7 +38,9 @@ void	ft_wait_start(t_philo *phl)
 	first = START_MS;
 	second = START_MS + phl->data->t_eat;
 	third = START_MS * 2 + phl->data->t_eat;
-	if (phl->id % 2 == 0)
+	if (phl->data->num_phil == 1)
+		ft_wait_to_time(phl, first);
+	else if (phl->id % 2 == 0)
 		ft_wait_to_time(phl, second);
 	else
 	{

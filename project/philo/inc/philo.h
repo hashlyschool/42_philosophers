@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 12:40:14 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/14 10:06:00 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/18 19:32:03 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@
 # define EATING "is eating\n"
 # define SLEEPING "is sleeping\n"
 # define THINKING "is thinking\n"
-# define DEID "died\n"
-# define START_MS 30
+# define DIED "died\n"
+# define START_MS 120
+# define SLEEP 500
 
 typedef struct s_data
 {
@@ -43,7 +44,9 @@ typedef struct s_data
 	int				max_eat;
 	pthread_mutex_t	*forks;
 	pthread_t		*philo_t;
-	pthread_mutex_t	time_dead_m;
+	pthread_mutex_t	last_eat_m;
+	pthread_mutex_t	data_dead_m;
+	pthread_mutex_t	num_eat_m;
 	int				death;
 	int				error;
 	unsigned long	time_start;
@@ -91,5 +94,9 @@ int				ft_get_min_fork(t_philo *philo);
 int				ft_get_max_fork(t_philo *philo);
 int				ft_get_r_fork(int i, t_data *data);
 int				ft_write_status(t_philo *philo, char *str);
+//condition.c
+int				cond_check_time(t_philo	*phl);
+int				cond_check_eat(t_philo	*phl);
+int				cond_check_data_dead(t_philo *phl, int mode);
 
 #endif

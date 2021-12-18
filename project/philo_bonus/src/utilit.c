@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 14:31:41 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/11 21:58:42 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/16 09:23:51 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ int	ft_write_status(t_philo *philo, char *str)
 	time = get_time_ms();
 	if (time - philo->last_eat <= philo->data->t_die)
 	{
-		if (philo->data->sem_death->__align == 0)
-			return (0);
-		printf("%lu %d %s", time - philo->data->time_start - START_MS, \
-		philo->id, str);
+		sem_wait(philo->data->sem_death);
+		if (get_time_ms() - philo->last_eat <= philo->data->t_die)
+			printf("%lu %d %s", time - philo->data->time_start - START_MS, \
+			philo->id, str);
+		sem_post(philo->data->sem_death);
 		return (1);
 	}
 	return (0);

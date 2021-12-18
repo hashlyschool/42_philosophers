@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:30:22 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/14 10:00:14 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/18 19:20:03 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,20 @@ void	*check_time_death(void *arg)
 	t_philo	*phl;
 
 	phl = (t_philo *)arg;
-	while (get_time_ms() - phl->last_eat <= phl->data->t_die)
+	while (cond_check_time(phl))
 	{
-		if (phl->data->max_eat != -1 && phl->num_eat == phl->data->max_eat)
+		if (cond_check_eat(phl))
 			return (NULL);
 		ft_usleep(phl->data, 1);
 	}
-	if (pthread_mutex_lock(&phl->data->time_dead_m))
-		return (ft_set_error2(phl->data, 4, \
-		"Error mutex lock in check_time_death\n"));
+	pthread_mutex_lock(&phl->data->data_dead_m);
 	if (phl->data->death != 1)
 	{
 		phl->data->death = 1;
 		printf("%lu %d %s", get_time_ms() - phl->data->time_start - START_MS, \
-		phl->id, DEID);
+		phl->id, DIED);
 	}
-	if (pthread_mutex_unlock(&phl->data->time_dead_m))
-		ft_set_error(phl->data, 4, \
-		"Error mutex unlock in check_time_death\n");
+	pthread_mutex_unlock(&phl->data->data_dead_m);
 	return (NULL);
 }
 
@@ -77,9 +73,9 @@ void	*philo_live(void *arg)
 	phl = (t_philo *)arg;
 	ft_wait_start(phl);
 	pthread_create(&death_t, NULL, check_time_death, phl);
-	while (phl->data->death != 1 && phl->num_eat <= phl->data->max_eat)
+	while (cond_check_data_dead(phl, 1))
 	{
-		if (phl->data->max_eat != -1 && phl->num_eat >= phl->data->max_eat)
+		if (cond_check_data_dead(phl, 2))
 			break ;
 		if (ft_take_forks(phl) == 0)
 			break ;
@@ -87,7 +83,7 @@ void	*philo_live(void *arg)
 			break ;
 		if (ft_philo_sleep(phl) == 0)
 			break ;
-		if (phl->data->max_eat != -1 && phl->num_eat == phl->data->max_eat)
+		if (cond_check_data_dead(phl, 3))
 			break ;
 		if (ft_think(phl) == 0)
 			break ;

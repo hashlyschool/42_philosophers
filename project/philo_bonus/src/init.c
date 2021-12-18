@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:32:45 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/11 21:57:12 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/15 20:50:45 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	ft_init_forks_time(t_data *data)
 	struct timeval	time;
 
 	sem_unlink("forks");
-	sem_unlink("check death");
+	sem_unlink("death");
 	data->sem_forks = sem_open("forks", O_CREAT, 0660, data->num_phil);
-	data->sem_death = sem_open("check death", O_CREAT, 0660, 1);
+	data->sem_death = sem_open("death", O_CREAT, 0660, 1);
 	if (data->sem_forks == SEM_FAILED)
 		exit(ft_exit(data, 1, "Error.  sem_open forks\n"));
 	if (data->sem_death == SEM_FAILED)
@@ -35,8 +35,6 @@ t_philo	ft_init_philo_struct(t_data *data, int id)
 
 	philo.id = id;
 	philo.data = data;
-	philo.death = 0;
-	philo.last_eat = 0;
 	if (data->max_eat != -1)
 		philo.num_eat = 0;
 	else
@@ -102,13 +100,11 @@ void	ft_init_philo(t_data *data)
 			fd = fork();
 			if (fd == -1)
 				exit(ft_exit(data, 4, "Error fork in ft_init_philo\n"));
-			data->arr_pid[i] = fd;
+			if (fd != 0)
+				data->arr_pid[i] = fd;
 		}
 		if (fd == 0)
-		{
 			ft_philo_live(data, i);
-			break ;
-		}
 	}
 	if (fd != 0)
 		ft_init_wait_pthread(data);
