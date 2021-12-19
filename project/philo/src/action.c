@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 10:20:44 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/18 19:15:04 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/19 13:45:49 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_eat(t_philo *philo)
 		pthread_mutex_unlock(&philo->data->forks[philo->min_fork]);
 		return (0);
 	}
-	ft_usleep(philo->data, philo->data->t_eat);
+	ft_usleep(philo->data->t_eat);
 	pthread_mutex_lock(&philo->data->last_eat_m);
 	philo->last_eat = get_time_ms();
 	pthread_mutex_unlock(&philo->data->last_eat_m);
@@ -76,7 +76,7 @@ int	ft_philo_sleep(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->data_dead_m);
 	if (ft_write_status(philo, SLEEPING) == 0)
 		return (0);
-	ft_usleep(philo->data, philo->data->t_sleep);
+	ft_usleep(philo->data->t_sleep);
 	return (1);
 }
 
@@ -92,7 +92,7 @@ int	ft_think(t_philo *philo)
 	if (ft_write_status(philo, THINKING) == 0)
 		return (0);
 	if (philo->data->t_eat > philo->data->t_sleep)
-		ft_usleep(philo->data, philo->data->t_eat - philo->data->t_sleep);
-	ft_usleep(philo->data, 1);
+		ft_usleep(philo->data->t_eat - philo->data->t_sleep);
+	ft_usleep(1);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 17:24:55 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/18 19:26:17 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/19 13:45:17 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,13 @@ int	cond_check_eat(t_philo	*phl)
 	}
 }
 
-/*
- if(mode == 1)
-	phl->data->death != 1 && phl->num_eat <= phl->data->max_eat
- if(mode == 2)
-	phl->data->death != 1 && phl->num_eat == phl->data->max_eat
- if(mode == 3)
-	phl->data->death != 1 && phl->num_eat >= phl->data->max_eat
-*/
 int	cond_check_data_dead(t_philo *phl, int mode)
 {
 	pthread_mutex_lock(&phl->data->data_dead_m);
 	pthread_mutex_lock(&phl->data->num_eat_m);
 	if ((mode == 1 && \
 	(phl->data->death != 1 && phl->num_eat <= phl->data->max_eat)) || \
-	(mode == 2 && \
+	(mode == 2 && !ft_check_error(phl->data) && \
 	(phl->data->max_eat != -1 && phl->num_eat >= phl->data->max_eat)) || \
 	(mode == 3 && \
 	(phl->data->max_eat != -1 && phl->num_eat == phl->data->max_eat)))

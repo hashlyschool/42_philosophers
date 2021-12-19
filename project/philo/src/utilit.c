@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 10:25:03 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/18 19:19:51 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/19 14:25:54 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,26 @@ int	ft_write_status(t_philo *philo, char *str)
 	unsigned long	time;
 
 	pthread_mutex_lock(&philo->data->data_dead_m);
+	pthread_mutex_lock(&philo->data->error_m);
 	time = get_time_ms();
-	if (time - philo->last_eat <= philo->data->t_die)
+	if (time && !philo->data->error && \
+	time - philo->last_eat <= philo->data->t_die)
 	{
 		if (philo->data->death == 1)
 		{
+			pthread_mutex_unlock(&philo->data->error_m);
 			pthread_mutex_unlock(&philo->data->data_dead_m);
 			return (0);
 		}
 		printf("%lu %d %s", time - philo->data->time_start - START_MS, \
 		philo->id, str);
+		pthread_mutex_unlock(&philo->data->error_m);
 		pthread_mutex_unlock(&philo->data->data_dead_m);
 		return (1);
 	}
+	pthread_mutex_unlock(&philo->data->error_m);
 	pthread_mutex_unlock(&philo->data->data_dead_m);
+	if (time == 0)
+		return (ft_set_error(philo->data, 10, "Error gettimeofday\n"));
 	return (0);
 }

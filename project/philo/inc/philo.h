@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 12:40:14 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/18 19:32:03 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/19 14:25:03 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define SLEEPING "is sleeping\n"
 # define THINKING "is thinking\n"
 # define DIED "died\n"
-# define START_MS 120
+# define START_MS 60
 # define SLEEP 500
 
 typedef struct s_data
@@ -49,6 +49,7 @@ typedef struct s_data
 	pthread_mutex_t	num_eat_m;
 	int				death;
 	int				error;
+	pthread_mutex_t	error_m;
 	unsigned long	time_start;
 }	t_data;
 
@@ -68,21 +69,19 @@ typedef struct s_philo
 void			ft_philo(int argc, char **argv);
 void			*philo_live(void *arg);
 //get_param.c
-void			init_data(t_data *data, int argc, char **argv);
+int				ft_init_data(t_data *data, int argc, char **argv);
 //error_exit.c
+int				ft_set_error(t_data *data, int error, char *message);
+int				ft_check_error(t_data *data);
 void			ft_end_cleaner(t_data *data, t_philo *philo);
-void			ft_destroy_forks(t_data *data);
 int				ft_exit_philo(t_data *data, t_philo *philo);
-void			ft_set_error(t_data *data, int error, char *message);
-void			*ft_set_error2(t_data *data, int error, char *message);
 //init.c
-void			ft_init_philo(t_data *data, t_philo *arg);
-void			ft_init_forks_time(t_data *data);
+int				ft_init_philo(t_data *data, t_philo **arg);
+int				ft_init_forks_time(t_data *data);
 void			ft_join_thread(t_data *data);
 //time.c
-void			ft_usleep(t_data *data, int sleep_time_ms);
-void			ft_wait_start(t_philo *phl);
-void			ft_wait_to_time(t_philo *data, int sleep_to_time_ms);
+void			ft_usleep(int sleep_time_ms);
+int				ft_wait_start(t_philo *phl);
 unsigned long	get_time_ms(void);
 //action.c
 int				ft_take_forks(t_philo *philo);

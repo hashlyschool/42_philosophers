@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:41:11 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/14 12:03:50 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/19 00:34:05 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	ft_atoi(const char *str)
 	return (n * flag);
 }
 
-static void	set_def_param(t_data *data)
+static void	ft_set_def_param(t_data *data)
 {
 	data->error = 0;
 	data->max_eat = -1;
@@ -49,10 +49,10 @@ static void	set_def_param(t_data *data)
 	return ;
 }
 
-static void	get_param(t_data *data, int argc, char **argv)
+static int	ft_get_param(t_data *data, int argc, char **argv)
 {
 	if (argc != 5 && argc != 6)
-		return (ft_set_error(data, 1, "wrong number arguments\n"));
+		ft_set_error(data, 2, "Invalid number of arguments. Need 5 or 6\n");
 	else
 	{
 		data->num_phil = ft_atoi(argv[1]);
@@ -62,14 +62,19 @@ static void	get_param(t_data *data, int argc, char **argv)
 		if (argc == 6)
 			data->max_eat = ft_atoi(argv[5]);
 	}
+	if (data->error)
+		return (0);
 	if (data->num_phil < 0 || data->t_die < 1 || data->t_sleep < 1 || \
 	data->t_eat < 1 || data->t_sleep < 1 || (argc == 6 && data->max_eat < 0))
-		ft_set_error(data, 1, "Not valid param\n");
+		return (ft_set_error(data, 2, "Incorrect parameters entered\n"));
+	return (0);
 }
 
-void	init_data(t_data *data, int argc, char **argv)
+int	ft_init_data(t_data *data, int argc, char **argv)
 {
-	set_def_param(data);
-	get_param(data, argc, argv);
-	return ;
+	if (pthread_mutex_init(&data->error_m, NULL))
+		return (ft_set_error(data, 1, "Error init  mutex\n"));
+	ft_set_def_param(data);
+	ft_get_param(data, argc, argv);
+	return (0);
 }
