@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 12:40:14 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/19 15:55:25 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/19 21:10:44 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@
 # include <semaphore.h>
 //for named const
 # include <fcntl.h>
-# define TAKE_FORK "has taken a fork\n"
-# define EATING "is eating\n"
-# define SLEEPING "is sleeping\n"
-# define THINKING "is thinking\n"
-# define DEID "died\n"
+# define TAKE_FORK "has taken a fork"
+# define EATING "is eating"
+# define SLEEPING "is sleeping"
+# define THINKING "is thinking"
+# define DIED "died"
 # define SLEEP 500
-# define START_MS 60
+# define START_MS 120
 
 typedef struct s_data
 {
@@ -53,9 +53,10 @@ typedef struct s_data
 	int				error;
 	unsigned long	time_start;
 	sem_t			*sem_forks;
-	sem_t			*sem_death;
+	// sem_t			*sem_death;
 	sem_t			*sem_last_eat;
 	sem_t			*sem_num_eat;
+	sem_t			*sem_print;
 	pid_t			*arr_pid;
 	pthread_t		*philo_thread;
 

@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:41:11 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/15 19:06:45 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/19 19:41:09 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	set_def_param(t_data *data)
 	data->death = 0;
 	data->time_start = 0;
 	data->sem_forks = NULL;
-	data->sem_death = NULL;
+	// data->sem_death = NULL;
 	data->arr_pid = NULL;
 	data->philo_thread = NULL;
 	return ;
