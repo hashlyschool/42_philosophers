@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 12:40:14 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/15 20:14:18 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/19 15:55:25 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@
 # define SLEEPING "is sleeping\n"
 # define THINKING "is thinking\n"
 # define DEID "died\n"
-# define START_MS 30
+# define SLEEP 500
+# define START_MS 60
 
 typedef struct s_data
 {
@@ -53,6 +54,8 @@ typedef struct s_data
 	unsigned long	time_start;
 	sem_t			*sem_forks;
 	sem_t			*sem_death;
+	sem_t			*sem_last_eat;
+	sem_t			*sem_num_eat;
 	pid_t			*arr_pid;
 	pthread_t		*philo_thread;
 
@@ -89,4 +92,8 @@ int				ft_take_forks(t_philo *philo);
 int				ft_eat(t_philo *philo);
 int				ft_philo_sleep(t_philo *philo);
 int				ft_think(t_philo *philo);
+//condition.c
+int				cond_one_check_time_death(t_philo *phl);
+int				cond_second_check_time_death(t_philo *phl);
+int				cond_third_check_time_death(t_philo *phl);
 #endif

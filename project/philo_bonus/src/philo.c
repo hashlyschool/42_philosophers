@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:30:22 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/16 09:57:57 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/19 15:53:18 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ static void	*check_time_death(void *arg)
 	t_philo			*phl;
 
 	phl = (t_philo *)arg;
-	while (get_time_ms() - phl->last_eat <= phl->data->t_die)
+	while (cond_one_check_time_death(phl))
 	{
-		if (phl->data->max_eat != -1 && phl->num_eat == phl->data->max_eat)
+		if (cond_second_check_time_death(phl))
 			return (NULL);
 		ft_usleep(phl->data, 1);
 	}
 	sem_wait(phl->data->sem_death);
-	if (get_time_ms() - phl->last_eat - phl->data->t_die < 10)
+	if (cond_third_check_time_death(phl))
 	{
 		printf("%lu %d %s", get_time_ms() - phl->data->time_start - START_MS, \
 		phl->id, DEID);

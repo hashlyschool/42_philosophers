@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 14:31:41 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/16 09:23:51 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/19 15:38:19 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	ft_exit(t_data *data, int mode, char *str_err)
 		sem_close(data->sem_forks);
 	if (mode >= 3)
 		sem_close(data->sem_death);
+	sem_close(data->sem_last_eat);
+	sem_close(data->sem_num_eat);
 	if (mode >= 4)
 		free(data->arr_pid);
 	return (0);

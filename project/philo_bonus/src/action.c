@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 10:20:44 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/11 16:50:07 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/19 15:40:59 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,15 @@ int	ft_eat(t_philo *philo)
 		return (0);
 	}
 	ft_usleep(philo->data, philo->data->t_eat);
+	sem_wait(philo->data->sem_last_eat);
 	philo->last_eat = get_time_ms();
+	sem_post(philo->data->sem_last_eat);
 	sem_post(philo->data->sem_forks);
 	sem_post(philo->data->sem_forks);
+	sem_wait(philo->data->sem_num_eat);
 	if (philo->num_eat != -1)
 		philo->num_eat++;
+	sem_post(philo->data->sem_num_eat);
 	return (1);
 }
 
