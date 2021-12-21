@@ -6,13 +6,13 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:30:22 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/21 16:03:29 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/21 17:02:55 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../inc/philo.h"
 
-static void	*check_time_death(void *arg)
+void	*check_time_death(void *arg)
 {
 	t_philo			*phl;
 
@@ -31,13 +31,16 @@ static void	*check_time_death(void *arg)
 		phl->id, DIED);
 		ft_usleep(phl->data, phl->data->t_die * 2);
 	}
-	sem_wait(phl->data->sem_death);
-	phl->data->death = 1;
-	sem_post(phl->data->sem_death);
+	// sem_wait(phl->data->sem_death);
+	// phl->data->death = 1;
+	// sem_post(phl->data->sem_death);
 	sem_post(phl->data->sem_print);
 	return (NULL);
 }
 
+/*
+	Main function for live philo
+*/
 void	ft_philo_live(t_data *data, int id)
 {
 	t_philo		phl;

@@ -1,6 +1,6 @@
 NAME		= philo_bonus
 CC			= clang
-FLAGS		= -O3 -pthread -Wall -Wextra -Werror #-fsanitize=thread -g
+FLAGS		= -O3 -pthread -Wall -Wextra -Werror -fsanitize=thread -g
 RM			= rm -rf
 INC			= ./inc
 INC_FILE	= ./inc/*

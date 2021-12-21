@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:32:45 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/21 16:02:48 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/21 17:18:09 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ void	ft_init_forks_time(t_data *data)
 	struct timeval	time;
 
 	sem_unlink("forks");
-	sem_unlink("death");
+	// sem_unlink("death");
 	sem_unlink("last_eat");
 	sem_unlink("num_eat");
 	sem_unlink("print");
-	data->sem_forks = sem_open("forks", O_CREAT, 0660, data->num_phil);
-	data->sem_death = sem_open("death", O_CREAT, 0660, 1);
-	data->sem_last_eat = sem_open("last_eat", O_CREAT, 0660, 1);
-	data->sem_num_eat = sem_open("num_eat", O_CREAT, 0660, 1);
-	data->sem_print = sem_open("print", O_CREAT, 0660, 1);
+	data->sem_forks = sem_open("forks", O_CREAT, 0700, data->num_phil);
+	// data->sem_death = sem_open("death", O_CREAT, 0660, 1);
+	data->sem_last_eat = sem_open("last_eat", O_CREAT, 0700, 1);
+	data->sem_num_eat = sem_open("num_eat", O_CREAT, 0700, 1);
+	data->sem_print = sem_open("print", O_CREAT, 0700, 1);
 	if (data->sem_forks == SEM_FAILED)
 		exit(ft_exit(data, 1, "Error sem_open\n"));
-	if (data->sem_death == SEM_FAILED)
-		exit(ft_exit(data, 2, "Error sem_check_death\n"));
+	// if (data->sem_death == SEM_FAILED)
+	// 	exit(ft_exit(data, 2, "Error sem_check_death\n"));
 	if (data->sem_last_eat == SEM_FAILED)
 		exit(ft_exit(data, 2, "Error.  sem_\n"));
 	if (data->sem_num_eat == SEM_FAILED)

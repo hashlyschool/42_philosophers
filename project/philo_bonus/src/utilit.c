@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 14:31:41 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/21 14:05:07 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/21 17:03:46 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_exit(t_data *data, int mode, char *str_err)
 		sem_close(data->sem_last_eat);
 		sem_close(data->sem_num_eat);
 		sem_close(data->sem_print);
-		sem_close(data->sem_death);
+		// sem_close(data->sem_death);
 		sem_close(data->sem_forks);
 	}
 	return (0);
