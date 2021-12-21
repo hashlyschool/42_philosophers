@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 12:40:14 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/19 21:10:44 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/21 13:47:01 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_data
 	int				error;
 	unsigned long	time_start;
 	sem_t			*sem_forks;
-	// sem_t			*sem_death;
+	sem_t			*sem_death;
 	sem_t			*sem_last_eat;
 	sem_t			*sem_num_eat;
 	sem_t			*sem_print;
@@ -97,4 +97,5 @@ int				ft_think(t_philo *philo);
 int				cond_one_check_time_death(t_philo *phl);
 int				cond_second_check_time_death(t_philo *phl);
 int				cond_third_check_time_death(t_philo *phl);
+int				cond_philo_live(t_philo *phl, int mode);
 #endif

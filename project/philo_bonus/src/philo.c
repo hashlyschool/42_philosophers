@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:30:22 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/19 20:12:55 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/21 16:03:29 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	*check_time_death(void *arg)
 			return (NULL);
 		ft_usleep(phl->data, 1);
 	}
-	// sem_wait(phl->data->sem_death);
+
 	sem_wait(phl->data->sem_print);
 	if (cond_third_check_time_death(phl))
 	{
@@ -31,9 +31,10 @@ static void	*check_time_death(void *arg)
 		phl->id, DIED);
 		ft_usleep(phl->data, phl->data->t_die * 2);
 	}
+	sem_wait(phl->data->sem_death);
 	phl->data->death = 1;
+	sem_post(phl->data->sem_death);
 	sem_post(phl->data->sem_print);
-	// sem_post(phl->data->sem_death);
 	return (NULL);
 }
 
@@ -46,9 +47,9 @@ void	ft_philo_live(t_data *data, int id)
 	ft_wait_start(&phl);
 	if (pthread_create(&death_t, NULL, check_time_death, &phl))
 		exit(ft_exit(data, 4, "Error. create pthread in ft_philo_live"));
-	while (phl.data->death != 1 && phl.num_eat <= phl.data->max_eat)
+	while (cond_philo_live(&phl, 1))
 	{
-		if (phl.data->max_eat != -1 && phl.num_eat >= phl.data->max_eat)
+		if (cond_philo_live(&phl, 2))
 			break ;
 		if (ft_take_forks(&phl) == 0)
 			break ;
@@ -56,14 +57,15 @@ void	ft_philo_live(t_data *data, int id)
 			break ;
 		if (ft_philo_sleep(&phl) == 0)
 			break ;
-		if (phl.data->max_eat != -1 && phl.num_eat == phl.data->max_eat)
+		if (cond_philo_live(&phl, 3))
 			break ;
 		if (ft_think(&phl) == 0)
 			break ;
 		ft_usleep(phl.data, 1);
 	}
 	pthread_join(death_t, NULL);
-	exit(ft_exit(data, 4, ""));
+	ft_exit(data, 4, "");
+	exit(0);
 }
 
 /*
