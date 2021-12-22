@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 12:40:14 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/21 17:03:03 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/22 15:04:04 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_data
 	int				error;
 	unsigned long	time_start;
 	sem_t			*sem_forks;
-	// sem_t			*sem_death;
 	sem_t			*sem_last_eat;
 	sem_t			*sem_num_eat;
 	sem_t			*sem_print;
@@ -74,13 +73,13 @@ typedef struct s_philo
 void			ft_philo_live(t_data *data, int id);
 //get_param.c
 void			ft_init_data(t_data *data, int argc, char **argv);
-
 //init.c
 void			ft_init_forks_time(t_data *data);
 void			ft_init_philo(t_data *data);
 t_philo			ft_init_philo_struct(t_data *data, int id);
 //utilit.c
 void			*ft_waitpid(void *arg);
+int				ft_write(t_philo *philo, char *str);
 int				ft_write_status(t_philo *philo, char *str);
 int				ft_exit(t_data *data, int mode, char *str_err);
 //time.c
@@ -98,4 +97,8 @@ int				cond_one_check_time_death(t_philo *phl);
 int				cond_second_check_time_death(t_philo *phl);
 int				cond_third_check_time_death(t_philo *phl);
 int				cond_philo_live(t_philo *phl, int mode);
+//itoa.c
+size_t			ft_strlen(const char *str);
+char			*ft_itoa(int n);
+
 #endif

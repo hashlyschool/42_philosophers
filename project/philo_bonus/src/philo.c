@@ -6,13 +6,13 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:30:22 by hashly            #+#    #+#             */
-/*   Updated: 2021/12/21 17:02:55 by hashly           ###   ########.fr       */
+/*   Updated: 2021/12/22 15:05:03 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../inc/philo.h"
 
-void	*check_time_death(void *arg)
+static void	*check_time_death(void *arg)
 {
 	t_philo			*phl;
 
@@ -23,17 +23,12 @@ void	*check_time_death(void *arg)
 			return (NULL);
 		ft_usleep(phl->data, 1);
 	}
-
 	sem_wait(phl->data->sem_print);
 	if (cond_third_check_time_death(phl))
 	{
-		printf("%lu %d %s\n", get_time_ms() - phl->data->time_start - START_MS, \
-		phl->id, DIED);
+		ft_write(phl, DIED);
 		ft_usleep(phl->data, phl->data->t_die * 2);
 	}
-	// sem_wait(phl->data->sem_death);
-	// phl->data->death = 1;
-	// sem_post(phl->data->sem_death);
 	sem_post(phl->data->sem_print);
 	return (NULL);
 }
@@ -67,8 +62,7 @@ void	ft_philo_live(t_data *data, int id)
 		ft_usleep(phl.data, 1);
 	}
 	pthread_join(death_t, NULL);
-	ft_exit(data, 4, "");
-	exit(0);
+	exit(ft_exit(data, 5, ""));
 }
 
 /*
@@ -89,6 +83,6 @@ int	main(int argc, char **argv)
 	ft_init_data(&data, argc, argv);
 	ft_init_forks_time(&data);
 	ft_init_philo(&data);
-	ft_exit(&data, 4, "");
+	ft_exit(&data, 5, "");
 	return (0);
 }
